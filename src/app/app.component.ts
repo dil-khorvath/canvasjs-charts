@@ -14,6 +14,6 @@ export class AppComponent {
   }
 
   public charts;
-  public selectedChart: any;
+  public selectedChart: any = "";
 
 }

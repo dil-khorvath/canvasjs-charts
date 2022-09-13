@@ -13,8 +13,7 @@ export class ChartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  defaultChart: string = "doughnut";
-  chartType: any = this.defaultChart;
+  chartType: any;
   chartInstance: any;
 
   chartOptions: any = {
@@ -23,7 +22,7 @@ export class ChartComponent implements OnInit {
       text: "Project Cost Breakdown"
     },
     data: [{
-      type: this.chartType,
+      type: "bar",
       yValueFormatString: "#,###.##'%'",
       indexLabel: "{name}",
       dataPoints: [
@@ -38,21 +37,22 @@ export class ChartComponent implements OnInit {
     }]
   }
 
-  getChartInstance(event: any){
+  getChartInstance(event: any) {
     this.chartInstance = event;
   }
 
   @Input()
-  public set setChartType(val: any){
-    if(!val) return;
-    this.chartType = val;
+  public set setChartType(val: any) {
     console.log(`Received: ${val}`);
+    if (!val) return;
+    if (!this.chartInstance) return;
+
+    this.chartType = val;
     this.chartOptions.data[0].type = this.chartType;
     this.chartOptions.title.text = this.chartType;
-    console.log(this.chartOptions);
     this.chartInstance.render();
   }
 
-  
+
 
 }
